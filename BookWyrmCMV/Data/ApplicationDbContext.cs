@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BookWyrmCMV.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookWyrmCMV.Data
 {
@@ -8,5 +9,7 @@ namespace BookWyrmCMV.Data
         {
             
         }
+
+        public DbSet<CategoryModel> Categories { get; set; }
     }
 }
