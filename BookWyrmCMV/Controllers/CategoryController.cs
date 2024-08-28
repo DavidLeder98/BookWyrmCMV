@@ -1,4 +1,5 @@
 ﻿using BookWyrmCMV.Data;
+using BookWyrmCMV.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookWyrmCMV.Controllers
@@ -13,6 +14,7 @@ namespace BookWyrmCMV.Controllers
 
         public IActionResult Index()
         {
+            List<CategoryModel> objCategoryList = _db.Categories.ToList();
             return View();
         }
     }
