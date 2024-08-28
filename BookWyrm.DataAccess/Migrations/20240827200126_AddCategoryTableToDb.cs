@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace BookWyrmCMV.Migrations
+namespace BookWyrm.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class AddCategoryTableToDb : Migration

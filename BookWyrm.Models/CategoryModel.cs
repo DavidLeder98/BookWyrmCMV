@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace BookWyrmCMV.Models
+namespace BookWyrm.Models
 {
     public class CategoryModel
     {

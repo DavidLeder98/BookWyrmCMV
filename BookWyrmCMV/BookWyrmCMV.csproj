@@ -15,4 +15,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BookWyrm.DataAccess\BookWyrm.DataAccess.csproj" />
+    <ProjectReference Include="..\BookWyrm.Models\BookWyrm.Models.csproj" />
+    <ProjectReference Include="..\BookWyrm.Utility\BookWyrm.Utility.csproj" />
+  </ItemGroup>
+
 </Project>

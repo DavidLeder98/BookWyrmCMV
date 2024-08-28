@@ -1,5 +1,5 @@
-﻿using BookWyrmCMV.Data;
-using BookWyrmCMV.Models;
+﻿using BookWyrm.DataAccess.Data;
+using BookWyrm.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookWyrmCMV.Controllers

@@ -1,7 +1,7 @@
-﻿using BookWyrmCMV.Models;
+﻿using BookWyrm.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookWyrmCMV.Data
+namespace BookWyrm.DataAccess.Data
 {
     public class ApplicationDbContext : DbContext
     {

@@ -1,4 +1,4 @@
-using BookWyrmCMV.Data;
+using BookWyrm.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookWyrmCMV
