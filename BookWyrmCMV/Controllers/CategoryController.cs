@@ -18,6 +18,7 @@ namespace BookWyrmCMV.Controllers
             return View(objCategoryList);
         }
 
+        // - - CREATE CATEGORY - -
         public IActionResult Create()
         {
             return View();
@@ -33,5 +34,32 @@ namespace BookWyrmCMV.Controllers
             }
             return View();
         }
-    }
+
+        // - - EDIT CATEGORY - -
+		public IActionResult Edit(int? id)
+		{
+            if (id == null || id == 0) 
+            {
+                return NotFound();
+            }
+            CategoryModel categoryFromDb = _db.Categories.Find(id);
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+
+			return View(categoryFromDb);
+		}
+		[HttpPost]
+		public IActionResult Edit(CategoryModel obj)
+		{
+			if (ModelState.IsValid)
+			{
+				_db.Categories.Add(obj);
+				_db.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			return View();
+		}
+	}
 }
