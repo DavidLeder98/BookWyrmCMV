@@ -15,7 +15,7 @@ namespace BookWyrmCMV.Controllers
         public IActionResult Index()
         {
             List<CategoryModel> objCategoryList = _db.Categories.ToList();
-            return View();
+            return View(objCategoryList);
         }
     }
 }
