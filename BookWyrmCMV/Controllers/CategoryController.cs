@@ -55,7 +55,34 @@ namespace BookWyrmCMV.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				_db.Categories.Add(obj);
+				_db.Categories.Update(obj);
+				_db.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			return View();
+		}
+
+		// - - DELETE CATEGORY - -
+		public IActionResult Delete(int? id)
+		{
+			if (id == null || id == 0)
+			{
+				return NotFound();
+			}
+			CategoryModel categoryFromDb = _db.Categories.Find(id);
+			if (categoryFromDb == null)
+			{
+				return NotFound();
+			}
+
+			return View(categoryFromDb);
+		}
+		[HttpPost]
+		public IActionResult Delete(CategoryModel obj)
+		{
+			if (ModelState.IsValid)
+			{
+				_db.Categories.Update(obj);
 				_db.SaveChanges();
 				return RedirectToAction("Index");
 			}
