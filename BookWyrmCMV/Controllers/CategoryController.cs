@@ -77,16 +77,17 @@ namespace BookWyrmCMV.Controllers
 
 			return View(categoryFromDb);
 		}
-		[HttpPost]
-		public IActionResult Delete(CategoryModel obj)
+		[HttpPost, ActionName("Delete")]
+		public IActionResult DeletePOST(int? id)
 		{
-			if (ModelState.IsValid)
+			CategoryModel? obj = _db.Categories.Find(id);
+			if(obj == null)
 			{
-				_db.Categories.Update(obj);
-				_db.SaveChanges();
-				return RedirectToAction("Index");
+				return NotFound();
 			}
-			return View();
+			_db.Categories.Remove(obj);
+			_db.SaveChanges();
+			return RedirectToAction("Index");
 		}
 	}
 }
