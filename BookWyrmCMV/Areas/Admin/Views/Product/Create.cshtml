@@ -1,6 +1,6 @@
 ﻿@model ProductVM
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
 	<div class="border p-3 mt-4">
 		<div class="row bp-2">
 			<h2>Create Product</h2>
@@ -39,6 +39,10 @@
 					<option disabled selected>--Select Category--</option>
 				</select>
 				<span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+			</div>
+			<div class="mb-3 row">
+				<label asp-for="Product.ImgUrl">Image</label>
+				<input type="file" class="form-control" />
 			</div>
 		</div>
 
