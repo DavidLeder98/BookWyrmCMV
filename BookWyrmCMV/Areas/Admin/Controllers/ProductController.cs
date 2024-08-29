@@ -151,7 +151,7 @@ namespace BookWyrmCMV.Areas.Admin.Controllers
         #region API CALLS
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll(int id)
         {
             List<ProductModel> objProductList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
             return Json(new {data = objProductList});
