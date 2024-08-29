@@ -21,7 +21,7 @@ namespace BookWyrmCMV.Areas.Admin.Controllers
         // - - SHOW PRODUCT LIST - -
         public IActionResult Index()
         {
-            List<ProductModel> objProductList = _unitOfWork.Product.GetAll().ToList();
+            List<ProductModel> objProductList = _unitOfWork.Product.GetAll(includeProperties:"Category").ToList();
             return View(objProductList);
         }
 
