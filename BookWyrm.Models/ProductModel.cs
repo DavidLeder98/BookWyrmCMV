@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookWyrm.Models
 {
@@ -24,7 +25,13 @@ namespace BookWyrm.Models
         [Required]
         [MaxLength(30)]
         public string ISBN { get; set; }
+        [Required]
 		[Range(1, 1000)]
 		public double Price { get; set; }
+
+        public int CategoryId { get; set; }
+        [ForeignKey("CategoryId")]
+        public CategoryModel Category { get; set; }
+        public string ImgUrl { get; set; }
     }
 }
