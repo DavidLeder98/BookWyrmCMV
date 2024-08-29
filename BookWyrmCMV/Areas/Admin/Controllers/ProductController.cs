@@ -2,6 +2,7 @@
 using BookWyrm.DataAccess.Repository.IRepository;
 using BookWyrm.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BookWyrmCMV.Areas.Admin.Controllers
 {
@@ -24,7 +25,14 @@ namespace BookWyrmCMV.Areas.Admin.Controllers
         // - - CREATE PRODUCT - -
         public IActionResult Create()
         {
-            return View();
+			//for the category select dropdown
+			IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+			{
+				Text = u.Name,
+				Value = u.Id.ToString()
+			});
+            ViewBag.CategoryList = CategoryList;
+			return View();
         }
         [HttpPost]
         public IActionResult Create(ProductModel obj)
