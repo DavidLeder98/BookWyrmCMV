@@ -43,8 +43,9 @@
 			</div>
 			<div class="mb-3 row">
 				<label asp-for="Product.ImgUrl">Image</label>
-				<input type="file" class="form-control" />
+				<input type="file" name="file" class="form-control" />
 			</div>
+			<img src="@Model.Product.ImgUrl" width="200px" class="mb-4" />
 		</div>
 
 		<div class="row">
