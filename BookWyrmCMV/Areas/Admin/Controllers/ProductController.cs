@@ -69,18 +69,33 @@ namespace BookWyrmCMV.Areas.Admin.Controllers
                     if (!string.IsNullOrEmpty(productVM.Product.ImgUrl))
                     {
                         //delete old img
-
+                        var oldImagePath = Path.Combine(wwwRootPath, productVM.Product.ImgUrl.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
                     }
 
+                    //upload new img
                     using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
                     {
                         file.CopyTo(fileStream);
                     }
 
+                    //update img url
                     productVM.Product.ImgUrl = @"\images\product\" + fileName;
                 }
 
-                _unitOfWork.Product.Add(productVM.Product);
+                //deciding wether to isnert or update
+                if(productVM.Product.Id == 0)
+                {
+					_unitOfWork.Product.Add(productVM.Product);
+				}
+                else
+                {
+					_unitOfWork.Product.Update(productVM.Product);
+				}
+                
                 _unitOfWork.Save();
                 TempData["success"] = "Product created successfully.";
                 return RedirectToAction("Index");
