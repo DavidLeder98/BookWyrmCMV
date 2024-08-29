@@ -20,7 +20,20 @@ namespace BookWyrm.DataAccess.Repository
 
 		public void Update(ProductModel obj)
 		{
-			_db.Products.Update(obj);
+			var objFromDb = _db.Products.FirstOrDefault(u => u.Id == obj.Id);
+			if(objFromDb != null)
+			{
+				objFromDb.Title = obj.Title;
+				objFromDb.Author = obj.Author;
+				objFromDb.Description = obj.Description;
+				objFromDb.ISBN = obj.ISBN;
+				objFromDb.Price = obj.Price;
+				objFromDb.CategoryId = obj.CategoryId;
+				if(obj.ImgUrl!= null)
+				{
+					objFromDb.ImgUrl = obj.ImgUrl;
+				}
+			}
 		}
 	}
 }
