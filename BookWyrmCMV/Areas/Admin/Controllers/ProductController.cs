@@ -27,7 +27,7 @@ namespace BookWyrmCMV.Areas.Admin.Controllers
 
 
         // - - CREATE PRODUCT - -
-        public IActionResult Create()
+        public IActionResult Upsert(int? id)
         {
 			//for the category select dropdowns to work
             ProductVM productVM = new()
@@ -39,14 +39,21 @@ namespace BookWyrmCMV.Areas.Admin.Controllers
 				}),
                 Product = new ProductModel()
             };
-
-			return View(productVM);
+            if (id == null || id == 0)
+            {
+                //insert
+				return View(productVM);
+			}
+            else
+            {
+                //update
+                productVM.Product = _unitOfWork.Product.Get(u => u.Id == id);
+                return View(productVM);
+            }
         }
 
-
-
         [HttpPost]
-        public IActionResult Create(ProductVM productVM)
+        public IActionResult Upsert(ProductVM productVM, IFormFile? file)
         {
             if (ModelState.IsValid)
             {
@@ -64,40 +71,6 @@ namespace BookWyrmCMV.Areas.Admin.Controllers
                 });
 				return View(productVM);
 			}
-        }
-
-
-
-
-        // - - EDIT PRODUCT - -
-        public IActionResult Edit(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            ProductModel productFromDb = _unitOfWork.Product.Get(u => u.Id == id);
-            if (productFromDb == null)
-            {
-                return NotFound();
-            }
-
-            return View(productFromDb);
-        }
-
-
-
-        [HttpPost]
-        public IActionResult Edit(ProductModel obj)
-        {
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.Product.Update(obj);
-                _unitOfWork.Save();
-                TempData["success"] = "Product updated successfully.";
-                return RedirectToAction("Index");
-            }
-            return View();
         }
 
 
