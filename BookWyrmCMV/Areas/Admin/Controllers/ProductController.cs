@@ -145,5 +145,18 @@ namespace BookWyrmCMV.Areas.Admin.Controllers
             TempData["success"] = "Product deleted successfully.";
             return RedirectToAction("Index");
         }
+
+
+
+        #region API CALLS
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            List<ProductModel> objProductList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
+            return Json(new {data = objProductList});
+        }
+
+        #endregion
     }
 }
