@@ -1,6 +1,7 @@
 ﻿using BookWyrm.DataAccess.Data;
 using BookWyrm.DataAccess.Repository.IRepository;
 using BookWyrm.Models;
+using BookWyrm.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -22,30 +23,51 @@ namespace BookWyrmCMV.Areas.Admin.Controllers
             return View(objProductList);
         }
 
+
+
+
         // - - CREATE PRODUCT - -
         public IActionResult Create()
         {
-			//for the category select dropdown
-			IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
-			{
-				Text = u.Name,
-				Value = u.Id.ToString()
-			});
-            ViewBag.CategoryList = CategoryList;
-			return View();
+			//for the category select dropdowns to work
+            ProductVM productVM = new()
+            {
+                CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+				{
+					Text = u.Name,
+					Value = u.Id.ToString()
+				}),
+                Product = new ProductModel()
+            };
+
+			return View(productVM);
         }
+
+
+
         [HttpPost]
-        public IActionResult Create(ProductModel obj)
+        public IActionResult Create(ProductVM productVM)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Product.Add(obj);
+                _unitOfWork.Product.Add(productVM.Product);
                 _unitOfWork.Save();
                 TempData["success"] = "Product created successfully.";
                 return RedirectToAction("Index");
             }
-            return View();
+            else
+            {
+				productVM.CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                });
+				return View(productVM);
+			}
         }
+
+
+
 
         // - - EDIT PRODUCT - -
         public IActionResult Edit(int? id)
@@ -62,6 +84,9 @@ namespace BookWyrmCMV.Areas.Admin.Controllers
 
             return View(productFromDb);
         }
+
+
+
         [HttpPost]
         public IActionResult Edit(ProductModel obj)
         {
@@ -74,6 +99,9 @@ namespace BookWyrmCMV.Areas.Admin.Controllers
             }
             return View();
         }
+
+
+
 
         // - - DELETE PRODUCT - -
         public IActionResult Delete(int? id)
@@ -90,6 +118,9 @@ namespace BookWyrmCMV.Areas.Admin.Controllers
 
             return View(productFromDb);
         }
+
+
+
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {

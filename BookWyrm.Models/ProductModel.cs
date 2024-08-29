@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace BookWyrm.Models
 {
@@ -31,7 +32,9 @@ namespace BookWyrm.Models
 
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
-        public CategoryModel Category { get; set; }
-        public string ImgUrl { get; set; }
+		[ValidateNever]
+		public CategoryModel Category { get; set; }
+		[ValidateNever]
+		public string ImgUrl { get; set; }
     }
 }
