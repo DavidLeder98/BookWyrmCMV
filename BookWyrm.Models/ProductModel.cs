@@ -16,12 +16,15 @@ namespace BookWyrm.Models
         [MaxLength(100)]
         public string Title { get; set; }
         [Required]
-        [MaxLength(30)]
-        public string ISBN { get; set; }
-        [Required]
         [MaxLength(100)]
         public string Author { get; set; }
-        [Range(1,1000)]
+        [Required]
+        [MaxLength(1000)]
+        public string Description { get; set; }
+        [Range(1, 1000)]
+        [Required]
+        [MaxLength(30)]
+        public string ISBN { get; set; }
         public double Price { get; set; }
     }
 }
