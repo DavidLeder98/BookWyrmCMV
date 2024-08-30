@@ -1,5 +1,7 @@
+using BookWyrm.DataAccess.Repository.IRepository;
 using BookWyrm.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using System.Diagnostics;
 
 namespace BookWyrmCMV.Areas.Customer.Controllers
@@ -8,15 +10,18 @@ namespace BookWyrmCMV.Areas.Customer.Controllers
 	public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
         {
             _logger = logger;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<ProductModel> productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
+            return View(productList);
         }
 
         public IActionResult Privacy()
