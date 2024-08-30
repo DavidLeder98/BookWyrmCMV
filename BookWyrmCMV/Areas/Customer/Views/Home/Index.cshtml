@@ -1,5 +1,28 @@
 ﻿@model IEnumerable<ProductModel>
 
 <div class="row pb-3">
-
+	@foreach(var product in Model)
+	{
+		<div class="col-lg-3 col-sm-6">
+			<div class="row p-2">
+				<div class="col-12 p-1">
+					<div class="car border-0 p-3 shadow border-top border-5 rounded">
+						<img src="@product.ImgUrl" class="card-img-top rounded" />
+						<div class="card-body pb-0 mt-2">
+							<div class="pl-1">
+								<p class="card-title h5 text-uppercase text-center">@product.Title</p>
+								<p class="card-title text-warning text-center">by <b>@product.Author</b></p>
+							</div>
+							<div class="pl-1">
+								<p class="text-center"><span>@product.Price.ToString("c")</span></p>
+							</div>
+						</div>
+						<div>
+							<a href="#" class="btn btn-outline-primary form-control">Details</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
 </div>

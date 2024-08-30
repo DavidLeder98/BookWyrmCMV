@@ -24,7 +24,13 @@ namespace BookWyrmCMV.Areas.Customer.Controllers
             return View(productList);
         }
 
-        public IActionResult Privacy()
+		public IActionResult Details(int id)
+		{
+			ProductModel product = _unitOfWork.Product.Get(includeProperties: "Category");
+			return View(product);
+		}
+
+		public IActionResult Privacy()
         {
             return View();
         }
