@@ -27,7 +27,7 @@ namespace BookWyrm.Models
         [MaxLength(30)]
         public string ISBN { get; set; }
         [Required]
-		[Range(1, 1000)]
+		[Range(1, 10000)]
 		public double Price { get; set; }
 
         public int CategoryId { get; set; }

@@ -1,10 +1,12 @@
 ﻿using BookWyrm.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookWyrm.DataAccess.Data
 {
-    public class ApplicationDbContext : DbContext
-    {
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+	{
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext>options) : base(options)
         {
             
@@ -15,6 +17,8 @@ namespace BookWyrm.DataAccess.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<CategoryModel>().HasData(
                 new CategoryModel { Id = 1, Name = "Combat", DisplayOrder = 1 },
                 new CategoryModel { Id = 2, Name = "Spellcasting", DisplayOrder = 2 },
