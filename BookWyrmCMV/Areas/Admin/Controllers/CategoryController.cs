@@ -1,11 +1,14 @@
 ﻿using BookWyrm.DataAccess.Data;
 using BookWyrm.DataAccess.Repository.IRepository;
 using BookWyrm.Models;
+using BookWyrm.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookWyrmCMV.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+    [Authorize(Roles = StaticDetails.Role_Admin)]
 	public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
