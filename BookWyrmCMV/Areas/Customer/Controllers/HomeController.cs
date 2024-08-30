@@ -26,7 +26,7 @@ namespace BookWyrmCMV.Areas.Customer.Controllers
 
 		public IActionResult Details(int id)
 		{
-			ProductModel product = _unitOfWork.Product.Get(includeProperties: "Category");
+			ProductModel product = _unitOfWork.Product.Get(u=>u.Id==id, includeProperties: "Category");
 			return View(product);
 		}
 
