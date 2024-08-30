@@ -14,6 +14,7 @@ namespace BookWyrm.DataAccess.Data
 
         public DbSet<CategoryModel> Categories { get; set; }
         public DbSet<ProductModel> Products { get; set; }
+        public DbSet<ApplicationUser> ApplicatonUsers {  get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
